@@ -1,0 +1,66 @@
+05_Maven.txt
+
+
+# Maven
+- 자바 프로젝트 관리 도구 
+- 프로젝트를 진행하면서 관리해야 하는 여러 가지들을 자동으로 관리해준다.
+- 업데이트 할 때마다 pom.xml에 적혀 있는 대로 프로젝트를 변경한다.
+(아 그래서 pom.xml 코드 수정하고 나서 플젝 - 우클릭 - Maven - Update project .. 해줬던 거군) 
+
+# POM (Project Object Model) 
+- 프로젝트 객체 모델 
+- 해당 프로젝트에 대한 다양한 정보들을 담은 객체 모델
+- pom.xml 에 저장한다. 
+(Maven말고 Gradle 같이 비슷한 역할을 하는 여러 프로그램들이 있음. Maven repository에서 JUnit깔러 들어갔을 떄 코드 복사 했었지? 거기 Maven탭, Gradle탭,  여러 가지 있음)
+
+# pom.xml의 구조
+
+<project>
+	<groupId> : 회사의 그룹아이디
+	<artifactId> : 프로젝트 이름
+	<name> : 프로젝트 이름 (보기 좋은 형태의 이름) 
+	<packaging> : 프로젝트 빌드 후 결과물의 형식 (war, jar, ...) 
+				  (우리 플젝은 완성하고 나면 war파일로 나온다고 돼 있음) 
+	<version> : 버전
+	<properties>
+		pom.xml 내부에서 사용할 property를 정의할 수 있다. 
+		이곳에서 정의한 property들은 밑에서 ${property} 로 불러서 사용할 수 있다.
+	</properties> 
+	<dependencies>
+		이 프로젝트를 구성하기 위해 필요한 다른 프로젝트들을 이곳에 등록할 수 있다.
+		이곳에 등록한 dependency들은 메이븐이 자동으로 다운로드 후 관리한다.
+		해당 프로젝트의 <groupId>, <artifactId>, <version> 을 적는다.
+		우리 플젝도 Maven에 등재가 된다면 다른사람들이 갖다 쓸 수 있는 거 
+		<scope>를 설정하여 현재 프로젝트에서 어떤 범위까지 사용되는 라이브러리인지(의존성인지) 설정 가능
+	</dependencies>
+	
+	<build>
+	이 프로젝트를 빌드할 때 필요한 것들에 대한 설정
+	</build>
+
+</project> 
+
+
+
+
+
+# <scope>
+- 해당 <dependency>가 프로젝트에서 사용되는 범위를 설정한다.
+
+- compile(기본값) : 컴파일시, 실행시 둘 다에 필요한 라이브러리(의존성<dependency>)
+				   컴파일에도 사용되고, 프로젝트 배포시에도 포함된다.
+
+- runtime : 컴파일 시에는 필요 없지만, 실행시에 필요한 <dependency>
+			프로젝트 배포시에 포함된다.
+			
+- provided : 컴파일 시에는 필요하고, 필요하고 실행시에는 필요 없는 <dependency> (jsp, lombok) 아파치에서 jsp를 어쩌고 할 수 잇기 때문에 번역할 때만 잠깐 필요하고 그 후에는 나가리
+			 컴파일에는 사용되지만, 배포에는 포함되지 않는다.
+	
+- test : 테스트코드 컴파일 및 실행시 필요한 <dependency>
+		 배포에 포함되지 않는다.
+
+
+ # Maven의 원격 레포지토리와 로컬 레포지토리
+ - Maven은 <dependencies> 에 등록된 모든 프로젝트들을 중앙 원격 레포지토리에서 다운 받는다. (원격 레포지토리) 
+ - 다운받은 프로젝트들은 %USER_HOME%/.m2/repository 폴더에 보관한다. (로컬 레포지토리)
+ 

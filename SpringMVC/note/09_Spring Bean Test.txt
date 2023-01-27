@@ -1,0 +1,33 @@
+09_Spring Bean Test.txt
+
+
+
+# Spring context 에 등록된 빈테스트 하기 
+- 서버를 실행하지 않으면 spring-context가 생성되지 않는다.
+- 당연히 bean들도 로드하지 않는다.
+- JUnit 테스트를 진행할 때는 서버가 실행되지 않으므로 이미 존재하는 설정들을 이용해 테스트용 빈을 생성해야 한다.
+  
+# spring-test
+    <!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-test</artifactId>
+	    <version>${org.springframework-version}</version>
+	    <scope>test</scope>
+	</dependency>
+위의 코드를 pom.xml의 <dependencies> 내에 있는 spring부분에 추가해주면 됨
+
+
+# JUnit 테스트에 spring-context 불러서 사용하기 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration({
+			"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml",
+			"file:src/main/webapp/WEB-INF/spring/root-context.xml"
+		})
+
+
+# Controller test
+- 컨트롤러는 기본적으로 요청을 받으면 다음으로 가는 뷰를 리턴해주는 역할을 한다.
+- 테스트를 진행하기 위해선 가짜요청을 만들어 보내야 한다.
+- 
+
